@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Philosophizing Reviewer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <button id="themeBtn" onclick="toggleTheme()">Dark mode</button>
+  <h1>Philosophizing Reviewer</h1>
+  <p>Introduction to the Philosophy of the Human Person &bull; Multiple-Choice Exam Reviewer</p>
+</header>
+
+<main>
+  <!-- START SCREEN -->
+  <section id="start" class="card">
+    <h2>Set up your exam</h2>
+    <p class="small">Covers: The Human Person in their Environment, Freedom of the Human Person, Methods of Philosophizing (Truth, Fallacies, Opinion and Bias) &mdash; plus the self-made notes.</p>
+
+    <div class="row" style="justify-content:space-between;margin:12px 0 6px">
+      <b>Choose topics</b>
+      <span><button class="btn alt" style="padding:5px 12px;font-size:.8rem" onclick="selAll(true)">Select all</button>
+      <button class="btn alt" style="padding:5px 12px;font-size:.8rem" onclick="selAll(false)">Clear</button></span>
+    </div>
+    <div id="topicList" class="grid"></div>
+
+    <div class="row" style="margin-top:16px">
+      <div>
+        <div class="small">Number of questions</div>
+        <select id="count">
+          <option value="10">10</option><option value="20">20</option><option value="30">30</option>
+          <option value="50" selected>50</option><option value="100">100</option><option value="all">All available</option>
+        </select>
+      </div>
+      <div>
+        <div class="small">Mode</div>
+        <select id="mode">
+          <option value="practice">Practice (instant feedback)</option>
+          <option value="exam">Exam (answers shown at the end)</option>
+        </select>
+      </div>
+      <div>
+        <div class="small">Question order</div>
+        <select id="order"><option value="shuffle">Shuffled</option><option value="lesson">Lesson order</option></select>
+      </div>
+    </div>
+    <p class="small" id="availInfo"></p>
+    <div class="row"><button class="btn" onclick="startQuiz()">Start Exam</button>
+    <span class="small" id="bestInfo"></span></div>
+  </section>
+
+  <!-- QUIZ SCREEN -->
+  <section id="quiz" class="card hidden">
+    <div class="topbar"><span id="qCount"></span><span id="topicName"></span><span id="timer">00:00</span></div>
+    <div class="bar"><div id="prog"></div></div>
+    <span class="tag" id="tag"></span>
+    <div class="qtext" id="qText"></div>
+    <div id="opts"></div>
+    <div id="fb"></div>
+    <div class="nav">
+      <button class="btn alt" id="prevBtn" onclick="go(-1)">&larr; Previous</button>
+      <button class="btn" id="nextBtn" onclick="go(1)">Next &rarr;</button>
+    </div>
+    <div class="qgrid" id="qgrid"></div>
+    <div class="row" style="margin-top:14px;justify-content:space-between">
+      <button class="btn alt" onclick="quitQuiz()">Quit</button>
+      <button class="btn warn" id="finishBtn" onclick="finish()">Submit &amp; see score</button>
+    </div>
+  </section>
+
+  <!-- RESULT SCREEN -->
+  <section id="result" class="hidden">
+    <div class="card">
+      <h2 class="center">Your Result</h2>
+      <div class="score" id="rScore"></div>
+      <p class="center" id="rMsg" style="font-weight:600"></p>
+      <p class="center small" id="rTime"></p>
+      <table class="tb" id="rTopics"></table>
+      <div class="row" style="margin-top:16px;justify-content:center">
+        <button class="btn" onclick="retake(false)">Retake (new set)</button>
+        <button class="btn warn" id="retakeWrong" onclick="retake(true)">Retry wrong answers</button>
+        <button class="btn alt" onclick="toStart()">Back to setup</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="row" style="justify-content:space-between"><h2 style="margin:0">Review answers</h2>
+        <select id="rvFilter" onchange="renderReview()"><option value="all">Show all</option><option value="wrong">Wrong / skipped only</option></select></div>
+      <div id="review"></div>
+    </div>
+  </section>
+</main>
+<footer>Sources: lesson slides (The Human Person in their Environment, Freedom of the Human Person, Methods of Philosophizing) and personal notes.</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
